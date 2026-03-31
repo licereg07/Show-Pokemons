@@ -33,8 +33,14 @@ pokemonsPaginados = computed(() => {
     );
   }
 
-  proximaPagina() {
-  this.paginaAtual.set(this.paginaAtual() + 1);
+  totalPaginas = computed(() => {
+  return Math.ceil(this.pokemons().length / this.itensPorPagina);
+});
+
+proximaPagina() {
+  if (this.paginaAtual() < this.totalPaginas()) {
+    this.paginaAtual.set(this.paginaAtual() + 1);
+  }
 }
 
 paginaAnterior() {
@@ -42,6 +48,5 @@ paginaAnterior() {
     this.paginaAtual.set(this.paginaAtual() - 1);
   }
 }
-
   
 }

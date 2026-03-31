@@ -24,23 +24,23 @@
 <nav class="mt-4">
   <ul class="pagination justify-content-center">
 
-    <li class="page-item">
-      <button class="page-link" (click)="paginaAnterior()">
-        Anterior
-      </button>
-    </li>
+    <li class="page-item" [class.disabled]="paginaAtual() === 1">
+  <button class="page-link" (click)="paginaAnterior()">
+    Anterior
+  </button>
+</li>
 
-    <li class="page-item active">
-      <span class="page-link">
-        {{ paginaAtual() }}
-      </span>
-    </li>
+<li class="page-item active">
+  <span class="page-link">
+    {{ paginaAtual() }}
+  </span>
+</li>
 
-    <li class="page-item">
-      <button class="page-link" (click)="proximaPagina()">
-        Próxima
-      </button>
-    </li>
+<li class="page-item" [class.disabled]="paginaAtual() === totalPaginas()">
+  <button class="page-link" (click)="proximaPagina()">
+    Próxima
+  </button>
+</li>
 
   </ul>
 </nav>
