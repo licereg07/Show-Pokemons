@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { Pokemon } from '../pokemon';
 import { PokemonService } from '../pokemon-service';
 
@@ -12,6 +12,16 @@ export class PokemonComponent implements OnInit {
 
   pokemons = signal<Pokemon[]>([]);
 
+paginaAtual = signal(1);
+itensPorPagina = 10;
+
+pokemonsPaginados = computed(() => {
+  const inicio = (this.paginaAtual() - 1) * this.itensPorPagina;
+  const fim = inicio + this.itensPorPagina;
+
+  return this.pokemons().slice(inicio, fim);
+});
+
   constructor(private service: PokemonService) {}
 
 
@@ -22,6 +32,16 @@ export class PokemonComponent implements OnInit {
       }
     );
   }
+
+  proximaPagina() {
+  this.paginaAtual.set(this.paginaAtual() + 1);
+}
+
+paginaAnterior() {
+  if (this.paginaAtual() > 1) {
+    this.paginaAtual.set(this.paginaAtual() - 1);
+  }
+}
 
   
 }
